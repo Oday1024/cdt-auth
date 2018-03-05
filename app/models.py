@@ -13,7 +13,3 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import current_app, request
 from . import db
 
-
-class Users(db.Model):
-    __tablename__ = 'td_user'
-    username = db.Column('TEST')
