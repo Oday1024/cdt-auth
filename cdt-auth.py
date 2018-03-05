@@ -1,7 +1,17 @@
+#!/usr/local/bin/venv/python
+# -*- coding: utf-8 -*-
+# @Time    : 2018/3/5 16:35
+# @Author  : ShenFeng
+# @Site    :
+# @File    : cdt-auth.py.py
+# @Software: PyCharm
+
+
 import os
 from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
+from app.models import User
 
 
 # 创建app实例
@@ -14,7 +24,7 @@ migrate = Migrate(app, db)
 
 # 创建命令行上下文
 def make_shell_context():
-    return dict(app=app, db=db,)
+    return dict(app=app, db=db, User=User)
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))
@@ -24,4 +34,4 @@ manager.add_command('db', MigrateCommand)
 
 # 运行项目
 if __name__ == '__main__':
-    app.run()
+    manager.run()

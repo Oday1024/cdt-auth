@@ -16,5 +16,11 @@ from . import db
 
 class User(db.Model):
     __tablename__ = 'td_user'
+    __table_args__ = {
+        'schema': 'sys'
+    }
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
+    open_id = db.Column(db.String(32), unique=True)
+    account = db.Column(db.String(64), unique=True)
+    password = db.Column(db.String(128))
+    deleted = db.Column(db.Integer)

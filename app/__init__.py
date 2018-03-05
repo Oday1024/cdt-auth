@@ -26,3 +26,5 @@ def create_app(config_name):
     # 初始化应用模块实例
     bootstrap.init_app(app)
     db.init_app(app)
+
+    return app
