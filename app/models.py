@@ -15,7 +15,9 @@ from . import db
 
 
 class User(db.Model):
+    # 数据库名称
     __tablename__ = 'td_user'
+    # 数据库schema
     __table_args__ = {
         'schema': 'sys'
     }
@@ -23,4 +25,4 @@ class User(db.Model):
     open_id = db.Column(db.String(32), unique=True)
     account = db.Column(db.String(64), unique=True)
     password = db.Column(db.String(128))
-    deleted = db.Column(db.Integer)
+    deleted = db.Column(db.Boolean)
