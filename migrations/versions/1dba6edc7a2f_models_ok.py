@@ -1,8 +1,8 @@
-"""momdels ok
+"""models ok
 
-Revision ID: 0e2879ef6058
-Revises: 45e6c17a079b
-Create Date: 2018-03-06 12:36:40.848446
+Revision ID: 1dba6edc7a2f
+Revises: 
+Create Date: 2018-03-06 13:41:47.685850
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0e2879ef6058'
-down_revision = '45e6c17a079b'
+revision = '1dba6edc7a2f'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -36,8 +36,6 @@ def upgrade():
     sa.Column('params', sa.String(length=256), nullable=True),
     sa.Column('log_date', sa.Date(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('account'),
-    sa.UniqueConstraint('res_id'),
     schema='sys'
     )
     op.create_table('td_menu',
@@ -56,9 +54,6 @@ def upgrade():
     sa.Column('icon', sa.String(length=256), nullable=True),
     sa.Column('deleted', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('menu_id'),
-    sa.UniqueConstraint('menu_name'),
-    sa.UniqueConstraint('menu_res_path'),
     schema='sys'
     )
     op.create_table('td_res',
@@ -84,8 +79,6 @@ def upgrade():
     sa.Column('creater', sa.Text(), nullable=True),
     sa.Column('data_access_level', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('res_id'),
-    sa.UniqueConstraint('res_name'),
     schema='sys'
     )
     op.create_table('td_res_type',
@@ -112,8 +105,6 @@ def upgrade():
     sa.Column('data_access_level', sa.Integer(), nullable=True),
     sa.Column('inside_default_open_id', sa.String(length=50), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('role_id'),
-    sa.UniqueConstraint('role_name'),
     schema='sys'
     )
     op.create_table('td_role_res',
@@ -128,8 +119,6 @@ def upgrade():
     sa.Column('data_role', sa.Text(), nullable=True),
     sa.Column('data_access_level', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('res_id'),
-    sa.UniqueConstraint('role_id'),
     schema='sys'
     )
     op.create_table('td_role_user',
@@ -144,8 +133,6 @@ def upgrade():
     sa.Column('data_role', sa.Text(), nullable=True),
     sa.Column('data_access_level', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('open_id'),
-    sa.UniqueConstraint('role_id'),
     schema='sys'
     )
     op.create_table('td_user',
@@ -163,8 +150,6 @@ def upgrade():
     sa.Column('data_access_level', sa.Integer(), nullable=True),
     sa.Column('inside_default_role_id', sa.String(length=50), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('account'),
-    sa.UniqueConstraint('open_id'),
     schema='sys'
     )
     # ### end Alembic commands ###

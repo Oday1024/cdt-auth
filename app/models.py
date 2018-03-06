@@ -20,8 +20,8 @@ class Users(db.Model):
         'schema': 'sys'
     }
     id = db.Column(db.Integer, primary_key=True)
-    open_id = db.Column(db.String(32), unique=True)
-    account = db.Column(db.String(64), unique=True)
+    open_id = db.Column(db.String(32))
+    account = db.Column(db.String(64))
     password = db.Column(db.String(128))
     deleted = db.Column(db.Boolean, default=False)
     b_inside = db.Column(db.Boolean, default=False)
@@ -43,8 +43,8 @@ class Roles(db.Model):
         'schema': 'sys'
     }
     id = db.Column(db.Integer, primary_key=True)
-    role_id = db.Column(db.String(32), unique=True)
-    role_name = db.Column(db.String(64), unique=True)
+    role_id = db.Column(db.String(32))
+    role_name = db.Column(db.String(64))
     data_scope = db.Column(db.Boolean, default=False)
     deleted = db.Column(db.Boolean, default=False)
     b_inside = db.Column(db.Boolean, default=False)
@@ -67,8 +67,8 @@ class Resources(db.Model):
         'schema': 'sys'
     }
     id = db.Column(db.Integer, primary_key=True)
-    res_id = db.Column(db.String(32), unique=True)
-    res_name = db.Column(db.String(64), unique=True)
+    res_id = db.Column(db.String(32))
+    res_name = db.Column(db.String(64))
     func_name = db.Column(db.String(64))
     res_flag = db.Column(db.String(64))
     res_path = db.Column(db.String(64))
@@ -98,8 +98,8 @@ class RoleUser(db.Model):
         'schema': 'sys'
     }
     id = db.Column(db.Integer, primary_key=True)
-    role_id = db.Column(db.String(32), unique=True)
-    open_id = db.Column(db.String(32), unique=True)
+    role_id = db.Column(db.String(32))
+    open_id = db.Column(db.String(32))
     deleted = db.Column(db.Boolean, default=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
     updater = db.Column(db.Text())
@@ -118,8 +118,8 @@ class RoleResource(db.Model):
         'schema': 'sys'
     }
     id = db.Column(db.Integer, primary_key=True)
-    role_id = db.Column(db.String(32), unique=True)
-    res_id = db.Column(db.String(32), unique=True)
+    role_id = db.Column(db.String(32))
+    res_id = db.Column(db.String(32))
     deleted = db.Column(db.Boolean, default=False)
     update_time = db.Column(db.DateTime, default=datetime.utcnow)
     updater = db.Column(db.Text())
@@ -139,8 +139,8 @@ class Log(db.Model):
     }
     id = db.Column(db.Integer, primary_key=True)
     log_time = db.Column(db.DateTime, default=datetime.utcnow)
-    account = db.Column(db.String(64), unique=True)
-    res_id = db.Column(db.String(32), unique=True)
+    account = db.Column(db.String(64))
+    res_id = db.Column(db.String(32))
     res_path = db.Column(db.String(64))
     sys_res_id = db.Column(db.String(64))
     sys_res_name = db.Column(db.String(64))
@@ -164,9 +164,9 @@ class Menu(db.Model):
         'schema': 'sys'
     }
     id = db.Column(db.Integer, primary_key=True)
-    menu_id = db.Column(db.String(64), unique=True)
-    menu_name = db.Column(db.String(64), unique=True)
-    menu_res_path = db.Column(db.String(64), unique=True)
+    menu_id = db.Column(db.String(64))
+    menu_name = db.Column(db.String(64))
+    menu_res_path = db.Column(db.String(64))
     p_menu_id = db.Column(db.String(64))
     sys_res_id = db.Column(db.String(64))
     sys_res_name = db.Column(db.String(64))
