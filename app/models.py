@@ -10,10 +10,15 @@
 from datetime import datetime
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+# 使用Flask-Login扩展来实现用户登录
+# UserMixin实现了Flask-Login扩展要求Users模型必须实现的方法
+# Users模型必须继承UserMixin，当然也可以自己写实现方法
+# 详见http://docs.jinkan.org/docs/flask-login/#id6
+from flask_login import UserMixin, AnonymousUserMixin
 
 
 # 用户表
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     # 数据库名称
     __tablename__ = 'td_user'
     # 数据库schema
@@ -83,9 +88,6 @@ class Roles(db.Model):
     # def __init__(self, role_name):
     #     self.role_name = role_name
 
-    def __repr__(self):
-        return '<Roles r%>' % self.role_name
-
 
 # api资源表
 class Resources(db.Model):
@@ -116,9 +118,6 @@ class Resources(db.Model):
     create_time = db.Column(db.DateTime, default=datetime.utcnow)
     creater = db.Column(db.String(128))
     data_access_level = db.Column(db.Integer, default=0)
-
-    # def __repr__(self):
-    #     return '<Resources r%>' % self.res_id
 
 
 # 用户角色关联表
@@ -222,3 +221,5 @@ class ResType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     res_type = db.Column(db.String(128), unique=True)
     deleted = db.Column(db.Integer, default=0)
+
+
