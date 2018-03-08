@@ -53,7 +53,6 @@ def login():
     # 测试请求参数数据
     # print(username)
     # print(passwd)
-    # print(request.data)
 
     # 用请求参数中的username查询数据库判断登录用户是否存在
     user = Users.query.filter_by(account=username).first()
