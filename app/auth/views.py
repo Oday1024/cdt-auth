@@ -46,6 +46,7 @@ def login():
     """
     # 获取请求参数中的用户名、密码明文
     # 采用curl -X POST http://127.0.0.1:5000/authsys/login/ -d 'username=guest&password=shenfeng'已经OK
+    # 采用Restlet Client - REST API Testing 工具测试OK
     username = request.form.get('username')
     passwd = request.form.get('password')
 
