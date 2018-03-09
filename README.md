@@ -15,3 +15,5 @@
     $ python cdt-auth.py create_superadmin
     $ python cdt-auth.py create_guest
     ```
+
+3. 本项目主要就是从登录页请求登录数据，后台能对数据进行校验并且返回结果，当前已经通过测试，但是由于本项目涉及的所有工具都是通过java实现的，因此不在继续进行开发，后续逐步将所用的工具用python实现，欢迎关注后续内容
