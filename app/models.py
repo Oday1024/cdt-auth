@@ -39,19 +39,22 @@ class Users(UserMixin, db.Model):
     data_access_level = db.Column(db.Integer, default=0)
     inside_default_role_id = db.Column(db.String(128))
 
-    # 设置明文密码为不可读
-    @property
-    def passwd(self):
-        raise AttributeError(u'密码已经被hash，不可读取！')
-
-    # 定义修改密码方法
-    @passwd.setter
-    def passwd(self, passwd):
-        self.password = generate_password_hash(passwd)
-
-    # 对密码进行验证
-    def verify_password(self, passwd):
-        return check_password_hash(self.password, passwd)
+    """
+    取消数据库密码hash
+    """
+    # # 设置明文密码为不可读
+    # @property
+    # def passwd(self):
+    #     raise AttributeError(u'密码已经被hash，不可读取！')
+    #
+    # # 定义修改密码方法
+    # @passwd.setter
+    # def passwd(self, passwd):
+    #     self.password = generate_password_hash(passwd)
+    #
+    # # 对密码进行验证
+    # def verify_password(self, passwd):
+    #     return check_password_hash(self.password, passwd)
 
     # # 初始化Users类，并且设置默认用户和默认权限
     # def __init__(self, account, passwd, open_id):
@@ -59,6 +62,18 @@ class Users(UserMixin, db.Model):
     #     self.password = self.passwd.setter(passwd)
     #     self.open_id = open_id
 
+    # 序列化为json格式
+    def to_json(self):
+        json_userlist = {
+            'account': self.account,
+            'open_id': self.open_id,
+            'password': self.password,
+            'data_role': self.data_role,
+            'data_access_level': self.data_access_level,
+            'create_time': self.create_time
+        }
+
+        return json_userlist
 
 # 角色表
 class Roles(db.Model):

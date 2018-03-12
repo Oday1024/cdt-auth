@@ -6,4 +6,8 @@
 # @File    : __init__.py.py
 # @Software: PyCharm
 
+from flask import Blueprint
 
+resourcemgr = Blueprint(__name__)
+
+from . import views

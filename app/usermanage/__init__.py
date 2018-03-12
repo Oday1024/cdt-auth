@@ -7,3 +7,8 @@
 # @Software: PyCharm
 
 
+from flask import Blueprint
+
+usermgr = Blueprint('usermgr', __name__)
+
+from . import views

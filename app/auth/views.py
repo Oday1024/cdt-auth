@@ -91,8 +91,12 @@ def login():
 
     # 用请求参数中的username查询数据库判断登录用户是否存在
     user = Users.query.filter_by(account=username).first()
+    # print user.password
     # 如果用户存在并且验证用户密码与数据库hash后的值相等
-    if user is not None and user.verify_password(passwd):
+    # if user is not None and user.verify_password(passwd):
+
+    # 数据库存明文password,如果改成hash存储，须修改models对应代码
+    if user is not None and user.password == passwd:
         # 构造响应参数
         # make_response的参数不能是dict、数组等，需要先转化为json格式
         rsp = make_response(jsonify(LOGIN_SUCCESS))
