@@ -18,6 +18,7 @@ from config import config
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 
+
 # 使用Flask-Login扩展来实现用户登录；
 # login_manager构造函数
 login_manager = LoginManager()
