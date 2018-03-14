@@ -23,7 +23,7 @@ db = SQLAlchemy()
 # login_manager构造函数
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
-login_manager.login_view = 'auth.login'
+login_manager.login_view = 'api_1_0.login'
 
 
 # 创建应用方法
@@ -40,10 +40,7 @@ def create_app(config_name):
 
 
     # 注册用户认证蓝图
-    from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint)
-
-    from .usermanage import usermgr as usermgr_blueprint
-    app.register_blueprint(usermgr_blueprint)
+    from .api_1_0 import sysapi as sysapi_blueprint
+    app.register_blueprint(sysapi_blueprint)
 
     return app

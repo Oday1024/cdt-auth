@@ -1,10 +1,11 @@
 #!/usr/local/bin/venv/python
 # -*- coding: utf-8 -*-
-# @Time    : 2018/3/6 00:55
+# @Time    : 2018/3/13 17:26
 # @Author  : ShenFeng
 # @Site    : 
-# @File    : views.py
+# @File    : usermgr.py
 # @Software: PyCharm
+
 
 # 换成flask-restful实现
 # from flask import request, jsonify, make_response, json
@@ -35,7 +36,7 @@
 #
 #
 # # # @login_required
-# # @usermgr.route('/authsys/api/resource/rolelist', methods=['GET'])
+# # @usermgr.route('/authsys/api_1_0/resource/rolelist', methods=['GET'])
 # # def getrolelist():
 # #     rolelist = db.session.query(Roles.id, Roles.role_name).all()
 # #     print rolelist
@@ -45,7 +46,7 @@
 # 可以获取到用户列表，但还存在很多问题
 # """
 # @login_required
-# @usermgr.route('/authsys/api/usermgr/getuserlist', methods=['GET'])
+# @usermgr.route('/authsys/api_1_0/usermgr/getuserlist', methods=['GET'])
 # def getuserlist():
 #     # 获取请求参数
 #     account = request.args.get('account')
@@ -114,13 +115,13 @@
 #     else:
 #         return 'w'
 
+from flask import jsonify, request
 # 采用flask_restful实现接口
-from flask_restful import Resource, Api, reqparse, fields, marshal_with, marshal
-from flask import jsonify
-from app.models import Users
-from . import usermgr
+from flask_restful import Resource, reqparse, fields, marshal
 
-api = Api(usermgr)
+from app.models import Users
+from . import api
+
 
 dataList_fields = {
            'account': fields.String,
@@ -128,52 +129,51 @@ dataList_fields = {
            'password': fields.String,
            'data_role': fields.String,
            'data_access_level': fields.String,
-           'create_time': fields.DateTime
+           'create_time': fields.DateTime(dt_format='rfc822')
        }
 
 
 # 定义工具类
-class Common:
-    def return_true(self, data, current_page, page_size, total_results=10):
-        succ = {
-            "current_page": current_page,
-            "dataList": data,
-            "page_size": page_size,
-            "total_results": total_results
-        }
-        return jsonify(succ)
-
-
-common = Common()
+def return_true(data, current_page, page_size, total_results=10):
+    succ = {
+        "current_page": current_page,
+        "dataList": data,
+        "page_size": page_size,
+        "total_results": total_results
+    }
+    return jsonify(succ)
 
 
 # 定义userlist资源
 class UserList(Resource):
     # @marshal_with(dataList_fields, envelope='dataList')
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('account', type=str)
-        # action='append' 可以传入多个值
-        parser.add_argument('role_ids', type=str, action='append')
-        # required=True表示必选参数
-        parser.add_argument('current_page', type=int, required=True)
-        # required=True表示必选参数
-        parser.add_argument('page_size', type=int, required=True)
-        args = parser.parse_args()
-
-        print args['account']
-        print args['role_ids']
-        print args['current_page']
-        print args['page_size']
-
-        if args['current_page']==1 or args['page_size']==20:
-        # if args['account'] is '' or args['role_ids'] is '':
+        # parser = reqparse.RequestParser()
+        # # print jsonify(parser)
+        # parser.add_argument('account', type=str, location=['args', 'json', 'headers'])
+        # # action='append' 可以传入多个值
+        # parser.add_argument('role_ids', type=str, location=['args', 'json', 'headers'])
+        # # required=True表示必选参数
+        # parser.add_argument('current_page', type=int, location=['args', 'json', 'headers'])
+        # # required=True表示必选参数
+        # parser.add_argument('page_size', type=int, location=['args', 'json', 'headers'])
+        # args = parser.parse_args()
+        #
+        # print args
+        #
+        # print args['account']
+        # print args['role_ids']
+        # print args['current_page']
+        # print args['page_size']
+        account = request.args.get('account')
+        role_ids = request.args.get('role_ids')
+        current_page = request.args.get('current_page')
+        page_size = request.args.get('page_size')
+        # if args['current_page']==1 or args['page_size']==20:
+        if str(account) is '' and str(role_ids) is '':
             dataList = Users.query.all()
-            print common.return_true(marshal(dataList, dataList_fields), current_page=args['current_page'],
-                                     page_size=args['page_size'], total_results=10)
-
-            return common.return_true(marshal(dataList, dataList_fields), current_page=args['current_page'],
-                                     page_size=args['page_size'], total_results=10)
+            return return_true(marshal(dataList, dataList_fields), current_page=int(current_page),
+                                     page_size=int(page_size), total_results=10)
         else:
             return 'w'
 
