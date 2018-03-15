@@ -7,3 +7,5 @@
 # @Software: PyCharm
 
 
+class RoleList:
+    pass
