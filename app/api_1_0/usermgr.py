@@ -117,10 +117,8 @@
 
 from flask import jsonify, request
 # 采用flask_restful实现接口
-from flask_restful import Resource, reqparse, fields, marshal
-
+from flask_restful import Resource, fields, marshal
 from app.models import Users
-from . import api
 
 
 dataList_fields = {
@@ -134,7 +132,7 @@ dataList_fields = {
 }
 
 
-# 定义工具类
+# 定义响应的json格式生成方法
 def return_true(data, current_page, page_size, total_results=10):
     succ = {
         "current_page": current_page,
@@ -177,9 +175,3 @@ class UserList(Resource):
                                      page_size=int(page_size), total_results=10)
         else:
             return 'w'
-
-
-api.add_resource(UserList, '/authsys/api/usermgr/getuserlist')
-
-
-

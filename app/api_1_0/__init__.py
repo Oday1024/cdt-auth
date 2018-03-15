@@ -9,11 +9,20 @@
 
 from flask import Blueprint
 from flask_restful import Api
+from .auth import Login
+from .usermgr import UserList
+from .common import RoleList
 
-sysapi = Blueprint('sysapi', __name__)
+
+# 创建sysapi蓝图
+sysapi = Blueprint('sysapi', __name__, url_prefix='/authsys/api')
+# 创建Api的实例
 api = Api(sysapi)
 
-from . import auth, usermgr
 
-
+"""添加所有api资源"""
+# 注册资源
+api.add_resource(Login, '/account/login')
+api.add_resource(RoleList, '/resource/rolelist')
+api.add_resource(UserList, '/usermgr/getuserlist')
 

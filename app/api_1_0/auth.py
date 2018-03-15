@@ -114,7 +114,6 @@ from flask import jsonify, make_response
 from ..models import Users
 from ..util.calljar import getpassword
 from flask_restful import Resource, reqparse
-from app.api_1_0 import api
 
 
 TOKEN = 'XSRF-TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhdXRoc3lzIiwic' \
@@ -195,6 +194,3 @@ class Login(Resource):
 
         else:
             return jsonify(LOGIN_ERR)
-
-
-api.add_resource(Login, '/authsys/api/account/login')
