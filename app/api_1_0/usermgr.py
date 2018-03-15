@@ -129,7 +129,7 @@ dataList_fields = {
            'password': fields.String,
            'data_role': fields.String,
            'data_access_level': fields.String,
-           'create_time': fields.DateTime(dt_format='rfc822')
+           'create_time': fields.DateTime(dt_format='%Y-%m-%d %H:%M:%S')
        }
 
 
@@ -179,11 +179,6 @@ class UserList(Resource):
 
 
 api.add_resource(UserList, '/authsys/api/usermgr/getuserlist')
-
-
-
-
-
 
 
 
