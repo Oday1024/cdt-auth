@@ -124,13 +124,14 @@ from . import api
 
 
 dataList_fields = {
-           'account': fields.String,
-           'open_id': fields.String,
-           'password': fields.String,
-           'data_role': fields.String,
-           'data_access_level': fields.String,
-           'create_time': fields.DateTime(dt_format='%Y-%m-%d %H:%M:%S')
-       }
+    'account': fields.String,
+    'open_id': fields.String,
+    'password': fields.String,
+    'data_role': fields.String,
+    'data_access_level': fields.String,
+    # 修改了flask_restful中的fields类，才可以格式化成%Y-%m-%d %H:%M:%S时间格式
+    'create_time': fields.DateTime(dt_format='%Y-%m-%d %H:%M:%S')
+}
 
 
 # 定义工具类
